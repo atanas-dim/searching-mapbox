@@ -1,5 +1,5 @@
 import React, { useEffect }  from 'react';
-import mapbox from 'mapbox-gl';
+import mapbox from '!mapbox-gl';
 import './Map.scss';
 
 const Map = ({state, updateState}) => {

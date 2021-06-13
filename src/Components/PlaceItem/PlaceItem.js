@@ -1,5 +1,5 @@
 import React from 'react'
-import mapbox from 'mapbox-gl';
+import mapbox from '!mapbox-gl';
 import './PlaceItem.scss'
 
 
