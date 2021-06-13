@@ -2,6 +2,7 @@ import React from 'react'
 import mapbox from 'mapbox-gl';
 import './PlaceItem.scss'
 
+
 const PlaceItem = ({place, state}) => {
     const map = state.map;
 
