@@ -1,0 +1,78 @@
+import React, { useState } from 'react'
+import PlacesPanel from '../PlacePanel/PlacesPanel'
+import './Search.scss'
+
+const Search = ({state, updateState}) => {
+
+    const[searchState, setSearchState] = useState({
+        value: "",
+        isLoading: false,
+        error: false,
+    })
+
+    const handleChange = (event) => {
+        setSearchState(prevState => {
+            return {...prevState, value: event.target.value}
+        })
+    }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        if (!searchState.value.trim()) {
+            return;
+        }
+
+        setSearchState(prevState => {
+            return {...prevState, isLoading:true, error:false}
+        })
+
+        const accessToken = "pk.eyJ1IjoiYXRhbmFzZGltIiwiYSI6ImNrcHI5OWwxNTAyOGkycXBzY3poenZzbmIifQ.89P2_0OkKWuRAd93Od68KQ";
+
+        const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchState.value}.json?access_token=${accessToken}`;
+        
+        const placesData = await fetch(url).then(response => {
+            if(response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Something went wrong');
+            }  
+        }).then(jsonResponse => {
+            setSearchState(prevState => {
+                return {...prevState, isLoading:false, error:false}
+            })
+            
+            const prevPlaces = state.places;
+            const firstResult = jsonResponse.features[0];
+
+            updateState("places", 
+                [
+                    ...prevPlaces, 
+                    {
+                        name: firstResult.place_name,
+                        longitude: firstResult.center[0],
+                        latitude: firstResult.center[1]
+                    }
+                ]
+            )
+
+        }).catch((error) => {
+            setSearchState(prevState => {
+                return {...prevState, isLoading:false, error:true}
+            })
+        });
+
+        setSearchState(prevState => {
+            return {...prevState, value: ""}
+        })
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <input value={searchState.value} onChange={handleChange} placeholder="Search for a place" />
+            <PlacesPanel state={state} searchState={searchState} ></PlacesPanel>
+        </form>
+    )
+}
+
+export default Search

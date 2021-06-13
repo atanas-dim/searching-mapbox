@@ -1,0 +1,29 @@
+div.places {
+    margin: 10px 0 0;
+    background: white;
+    z-index: 1;
+
+    width: 200px;
+    max-width: calc(100vw - 60px);
+
+    div.place-item,
+    div.no-results,
+    div.error-message,
+    div.loading-message {
+        background: white;
+        padding: 5px 10px;
+        font-size: 14px;
+        cursor: pointer;
+
+        &:hover {
+            background: #ffffcc;
+        }
+
+        &.no-results,
+        &.error-message,
+        &.loading-message {
+            color: #999999;
+        }
+    }
+
+}

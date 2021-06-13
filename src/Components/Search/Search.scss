@@ -1,0 +1,17 @@
+form {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+
+    input {
+        width: 200px;
+        max-width: calc(100vw - 60px);
+        height: 30px;
+        line-height: 30px;
+        padding: 0 10px;
+        box-sizing: border-box;
+        border: none;
+        outline: none;
+    }
+}
