@@ -1,7 +1,7 @@
 import React from 'react'
+// eslint-disable-next-line import/no-webpack-loader-syntax
 import mapbox from '!mapbox-gl';
 import './PlaceItem.scss'
-
 
 const PlaceItem = ({place, state}) => {
     const map = state.map;
@@ -17,7 +17,7 @@ const PlaceItem = ({place, state}) => {
         }).setLngLat([place.longitude, place.latitude])
         .setPopup(popUp)
         .addTo(map);
-    }
+    } 
 
     const goTo = () => {
         map.flyTo({center: [place.longitude, place.latitude], speed: 0.8})
