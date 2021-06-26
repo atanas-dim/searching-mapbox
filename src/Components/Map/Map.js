@@ -52,7 +52,7 @@ const Map = ({ state, updateState }) => {
 
     //Add this map instance to the app state
     updateState({ map: map });
-  }, []);
+  }, [state.latitude, state.longitude, state.style, state.zoom, updateState]);
 
   useEffect(() => {
     if (state.map) {
