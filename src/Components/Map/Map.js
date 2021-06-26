@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapbox from "!mapbox-gl";
 import "./Map.scss";

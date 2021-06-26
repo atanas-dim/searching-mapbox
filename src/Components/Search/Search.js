@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PlacesPanel from "../PlacesPanel/PlacesPanel";
 import SearchResults from "../SearchResults/SearchResults";
 import "./Search.scss";
 

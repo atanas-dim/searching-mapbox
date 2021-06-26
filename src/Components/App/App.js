@@ -37,6 +37,10 @@ function App() {
         root.classList.add("dark");
         root.classList.remove("light");
         break;
+      default:
+        root.classList.add("light");
+        root.classList.remove("dark");
+        break;
     }
   }, [state.theme]);
 
