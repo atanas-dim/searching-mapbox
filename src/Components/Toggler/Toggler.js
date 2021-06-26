@@ -1,39 +1,53 @@
-import React from 'react';
-import './Toggler.scss';
+import React from "react";
+import "./Toggler.scss";
 
-const Toggler = ({state, updateState}) => {
+const Toggler = ({ state, updateState }) => {
+  const styles = [
+    {
+      name: "Satellite",
+      url: "mapbox://styles/mapbox/satellite-streets-v11",
+      theme: "light",
+    },
+    {
+      name: "Light",
+      url: "mapbox://styles/mapbox/light-v10",
+      theme: "light",
+    },
+    {
+      name: "Dark",
+      url: "mapbox://styles/mapbox/dark-v10",
+      theme: "dark",
+    },
+  ];
 
-    const styles = [
-        {
-            name: "Satellite",
-            url: "mapbox://styles/mapbox/satellite-streets-v11"
-        },
-        {
-            name: "Light",
-            url: "mapbox://styles/mapbox/light-v10"
-        },
-        {
-            name: "Dark",
-            url: "mapbox://styles/mapbox/dark-v10"
-        }
-    ]
+  const buttons = styles.map((style, index) => {
+    let className = style.url === state.style ? "selected" : "";
 
-    const buttons = styles.map((style, index) => {
-
-        let className = "";
-
-        if (style.url === state.style) {
-            className = "selected"
-        }
-
-        return <button onClick={() => {updateState( "style", style.url)}} key={`styleBtn${index}`} className={className} >{style.name}</button>
-    })
+    const settings = {
+      style: style.url,
+      theme: style.theme,
+    };
 
     return (
-        <div className="toggler">
-            {buttons}
-        </div>
-    )
-}
+      <button
+        onClick={() => {
+          updateState(settings);
+        }}
+        key={`styleBtn${index}`}
+        className={className}
+      >
+        {style.name}
+      </button>
+    );
+  });
 
-export default Toggler
+  return (
+    <div className="mapboxgl-ctrl-bottom-left">
+      <div className="mapboxgl-ctrl mapboxgl-ctrl-group mapboxgl-ctrl-group-horizontal toggler">
+        {buttons}
+      </div>
+    </div>
+  );
+};
+
+export default Toggler;

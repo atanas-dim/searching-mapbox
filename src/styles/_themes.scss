@@ -1,0 +1,57 @@
+.light {
+  --color-bg: #e0e0e0;
+  --color-input: #ffffff;
+  --color-card: #ffffff;
+  --color-ctrl-btn: #ffffff;
+  --color-hover: #f1f1f1;
+  --color-hover2: #e7e7e7;
+  --color-active: #e7e7e7;
+  --color-text: #1a1a1a;
+  --color-text-secondary: #888888;
+  --color-outline: #dddddd;
+  --color-highlight: #42a5f5;
+  --color-error: #e91e63;
+
+  --shadow-controls: 0 0 0 2px rgba(0, 0, 0, 0.2);
+
+  --zoom-in: url(../assets/add_black_24dp.svg);
+  --zoom-out: url(../assets/remove_black_24dp.svg);
+  --compass: url(../assets/compass_black_24dp.svg);
+  --close: url(../assets/add_black_24dp.svg);
+
+  --geolocate: url(../assets/location_black_24dp.svg); //
+  --geolocate-disabled: url(../assets/location_disabled_black_24dp.svg); //
+  --geolocate-active: url(../assets/location_active_24dp.svg); //
+  --geolocate-active-error: url(../assets/location_active_error_24dp.svg); //
+  --geolocate-background: url(../assets/location_background_24dp.svg); //
+  --geolocate-background-error: url(../assets/location_background_error_24dp.svg); //
+}
+
+.dark {
+  --color-bg: #181818;
+  --color-input: #333333;
+  --color-card: #333333;
+  --color-ctrl-btn: #333333;
+  --color-hover: #505050;
+  --color-hover2: #646464;
+  --color-active: #646464;
+  --color-text: #fff;
+  --color-text-secondary: #aaaaaa;
+  --color-outline: #aaaaaa;
+  --color-highlight: #42a5f5;
+  --color-error: #e91e63;
+
+  --shadow-controls: 0 0 0 2px rgba(255, 255, 255, 0.1);
+
+  --zoom-in: url(../assets/add_white_24dp.svg);
+  --zoom-out: url(../assets/remove_white_24dp.svg);
+  --compass: url(../assets/compass_white_24dp.svg);
+  --close: url(../assets/add_white_24dp.svg);
+
+  --geolocate: url(../assets/location_white_24dp.svg); //
+  --geolocate-disabled: url(../assets/location_disabled_white_24dp.svg); //
+  --geolocate-active: url(../assets/location_active_24dp.svg); //
+  --geolocate-active-error: url(../assets/location_active_error_24dp.svg); //
+  --geolocate-background: url(../assets/location_background_24dp.svg); //
+  --geolocate-background-error: url(../assets/location_background_error_24dp.svg); //
+}

@@ -1,0 +1,12 @@
+div.show-hide-container {
+  width: fit-content;
+
+  .show-hide-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 24px;
+    padding: 5px 10px;
+  }
+}
