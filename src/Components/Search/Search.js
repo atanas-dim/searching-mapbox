@@ -43,8 +43,6 @@ const Search = ({ state, updateState }) => {
         }
       })
       .then((jsonResponse) => {
-        // console.log(jsonResponse);
-
         setSearchState((prevState) => {
           return { ...prevState, isLoading: false, error: false };
         });
