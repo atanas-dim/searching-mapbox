@@ -11,7 +11,6 @@ const PlacesPanel = ({ state, updateState }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   let placesDiv;
-
   let scrollTop = 0;
   let scrollHeight = 0;
   let offsetHeight = 0;
