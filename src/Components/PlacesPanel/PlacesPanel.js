@@ -9,17 +9,19 @@ const PlacesPanel = ({ state, updateState }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   let placesPanel;
-  let placesDiv;
   let scrollTop = 0;
   let scrollHeight = 0;
   let offsetHeight = 0;
 
   // Check if the panel is scrollable
   const checkIsScrollable = () => {
-    placesDiv = document.getElementById("places");
-    scrollTop = placesDiv.scrollTop;
-    scrollHeight = placesDiv.scrollHeight;
-    offsetHeight = placesDiv.offsetHeight;
+    placesPanel = document.getElementById("places-panel");
+    scrollTop = placesPanel.scrollTop;
+    scrollHeight = placesPanel.scrollHeight;
+    offsetHeight = placesPanel.offsetHeight;
+    console.log(scrollTop);
+    console.log(scrollHeight);
+    console.log(offsetHeight);
 
     scrollHeight > offsetHeight
       ? setIsScrollable(true)
@@ -30,8 +32,7 @@ const PlacesPanel = ({ state, updateState }) => {
     checkIsScrollable();
 
     let vh = window.innerHeight * 0.01;
-
-    placesPanel = document.getElementById("places-panel");
+    // placesPanel = document.getElementById("places-panel");
     placesPanel.style.maxHeight = 70 * vh + "px";
   }, []);
 
