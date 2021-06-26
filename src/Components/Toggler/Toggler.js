@@ -1,5 +1,5 @@
 import React from "react";
-// import "./Toggler.scss";
+import "./Toggler.scss";
 
 const Toggler = ({ state, updateState }) => {
   const styles = [

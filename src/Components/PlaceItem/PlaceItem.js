@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapbox from "!mapbox-gl";
-// import "./PlaceItem.scss";
+import "./PlaceItem.scss";
 
 const PlaceItem = ({ place, state, updateState }) => {
   const map = state.map;

@@ -1,5 +1,5 @@
 import React from "react";
-// import "./SearchMessage.scss";
+import "./SearchMessage.scss";
 
 const SearchMessage = ({ message }) => {
   return (

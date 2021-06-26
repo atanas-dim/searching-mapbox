@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SearchResults from "../SearchResults/SearchResults";
-// import "./Search.scss";
+import "./Search.scss";
 
 const Search = ({ state, updateState }) => {
   const [searchState, setSearchState] = useState({

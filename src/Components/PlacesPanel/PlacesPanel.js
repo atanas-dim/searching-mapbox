@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PlaceItem from "../PlaceItem/PlaceItem";
 import ShowHideButton from "../ShowHideButton/ShowHideButton";
-// import "./PlacesPanel.scss";
+import "./PlacesPanel.scss";
 
 const PlacesPanel = ({ state, updateState }) => {
   const places = state.places;

@@ -1,5 +1,5 @@
 import React from "react";
-// import "./ShowHideButton.scss";
+import "./ShowHideButton.scss";
 
 const ShowHideButton = ({ showHideResults, buttonText }) => {
   return (
