@@ -1,21 +1,23 @@
-.search-form {
-  position: fixed;
-  top: 10px;
-  left: 10px;
+.search-container {
   z-index: 1;
+  // max-height: calc(var(--vh) * 30);
 
-  input {
-    background-color: var(--color-input);
-    color: var(--color-text);
-    max-width: 300px;
-    width: calc(100vw - 86px);
-    height: 48px;
-    line-height: 48px;
-    padding: 0 20px;
-    margin: 2px;
-    box-sizing: border-box;
-    border: none;
-    border-radius: 999px;
-    outline: none;
+  .search-form {
+    margin: 10px 0 10px 10px;
+
+    input {
+      background-color: var(--color-input);
+      color: var(--color-text);
+      max-width: 300px;
+      width: calc(100vw - 86px);
+      height: 48px;
+      line-height: 48px;
+      padding: 0 20px;
+      margin: 2px;
+      box-sizing: border-box;
+      border: none;
+      border-radius: 999px;
+      outline: none;
+    }
   }
 }

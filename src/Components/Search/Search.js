@@ -71,7 +71,7 @@ const Search = ({ state, updateState }) => {
   };
 
   return (
-    <>
+    <div className="search-container">
       <form className="search-form mapboxgl-ctrl-group" onSubmit={handleSubmit}>
         <input
           value={searchState.value}
@@ -84,7 +84,7 @@ const Search = ({ state, updateState }) => {
         updateState={updateState}
         searchState={searchState}
       />
-    </>
+    </div>
   );
 };
 

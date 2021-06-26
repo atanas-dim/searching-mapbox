@@ -1,11 +1,15 @@
 div.show-hide-container {
-  width: fit-content;
+  width: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   .show-hide-btn {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: auto;
+    // width: auto;
     height: 24px;
     padding: 5px 10px;
   }

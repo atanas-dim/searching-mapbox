@@ -42,7 +42,7 @@ const Toggler = ({ state, updateState }) => {
   });
 
   return (
-    <div className="mapboxgl-ctrl-bottom-left">
+    <div className="toggler-container">
       <div className="mapboxgl-ctrl mapboxgl-ctrl-group mapboxgl-ctrl-group-horizontal toggler">
         {buttons}
       </div>
