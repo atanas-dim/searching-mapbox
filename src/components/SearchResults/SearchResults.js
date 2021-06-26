@@ -1,5 +1,6 @@
 import React from "react";
 import SearchMessage from "../SearchMessage/SearchMessage";
+
 import PlacesPanel from "../PlacesPanel/PlacesPanel";
 
 const SearchResults = ({ state, updateState, searchState }) => {

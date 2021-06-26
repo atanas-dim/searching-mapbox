@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Map from "../Map/Map";
 import Toggler from "../Toggler/Toggler";
 import Search from "../Search/Search";
-import "./App.scss";
+// import "./App.scss";
 
 function App() {
   const [state, setState] = useState({
