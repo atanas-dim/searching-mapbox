@@ -6,8 +6,10 @@ import "./PlacesPanel.scss";
 const PlacesPanel = ({ state, updateState }) => {
   const places = state.places;
   const [isScrollable, setIsScrollable] = useState(false);
+
   const [hasFadeTop, setHasFadeTop] = useState(false);
   const [hasFadeBottom, setHasFadeBottom] = useState(false);
+
   const [isOpen, setIsOpen] = useState(false);
 
   let placesDiv;
