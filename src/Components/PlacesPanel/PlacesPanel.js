@@ -12,7 +12,7 @@ const PlacesPanel = ({ state, updateState }) => {
 
   useEffect(() => {
     checkIsScrollable();
-    if (places.length) setIsOpen(true);
+    places.length ? setIsOpen(true) : setIsOpen(false);
   }, [places]);
 
   let placesPanel;
@@ -77,10 +77,12 @@ const PlacesPanel = ({ state, updateState }) => {
         </div>
       </div>
 
-      <ShowHideButton
-        showHideResults={showHideResults}
-        buttonText={isOpen ? "Hide results" : "Show results"}
-      />
+      {places.length > 0 && (
+        <ShowHideButton
+          showHideResults={showHideResults}
+          buttonText={isOpen ? "Hide results" : "Show results"}
+        />
+      )}
     </div>
   );
 };
