@@ -4,7 +4,6 @@ import PlacesPanel from "../PlacesPanel/PlacesPanel";
 
 const SearchResults = ({ state, updateState, searchState }) => {
   if (searchState.isLoading) {
-    console.log("search loading");
     return <SearchMessage message="Loading..." />;
   }
 

@@ -19,9 +19,9 @@ const PlacesPanel = ({ state, updateState }) => {
     scrollTop = placesPanel.scrollTop;
     scrollHeight = placesPanel.scrollHeight;
     offsetHeight = placesPanel.offsetHeight;
-    console.log(scrollTop);
-    console.log(scrollHeight);
-    console.log(offsetHeight);
+    // console.log(scrollTop);
+    // console.log(scrollHeight);
+    // console.log(offsetHeight);
 
     scrollHeight > offsetHeight
       ? setIsScrollable(true)

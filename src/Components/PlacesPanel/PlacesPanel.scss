@@ -1,5 +1,4 @@
 div.places-container {
-  // height: 100%;
   margin: 0 0 0 10px;
   z-index: 1;
 
@@ -30,10 +29,7 @@ div.places-container {
       margin-bottom: 0;
     }
 
-    div.place-item,
-    div.no-results,
-    div.error-message,
-    div.loading-message {
+    div.place-item {
       max-width: 300px;
       width: calc(100vw - 86px);
       min-height: 48px;
@@ -45,12 +41,6 @@ div.places-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-
-      &.no-results,
-      &.error-message,
-      &.loading-message {
-        color: #999999;
-      }
     }
 
     div.places {
