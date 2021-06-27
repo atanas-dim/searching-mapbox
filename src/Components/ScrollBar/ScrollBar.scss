@@ -1,0 +1,20 @@
+.scroll-track {
+  width: 6px;
+  max-height: calc(var(--vh, 1vh) * 70 - 48px);
+  height: 100%;
+  position: absolute;
+  top: 24px;
+  right: 2px;
+  border-radius: 999px;
+  background-color: var(--color-scroll-track);
+  z-index: 1;
+
+  .scroll-thumb {
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    top: 0;
+    border-radius: 999px;
+    background-color: var(--color-scroll-thumb);
+  }
+}

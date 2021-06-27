@@ -1,6 +1,9 @@
 @import "./styles/base";
 @import "./styles/themes";
 @import "./styles/_mapbox-custom-style.scss";
+html {
+  font-size: 20px;
+}
 
 body {
   margin: 0;

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import PlaceItem from "../PlaceItem/PlaceItem";
 import ShowHideButton from "../ShowHideButton/ShowHideButton";
+import ScrollBar from "../ScrollBar/ScrollBar";
 import "./PlacesPanel.scss";
 
 const PlacesPanel = ({ state, updateState }) => {
   const places = state.places;
   const [isScrollable, setIsScrollable] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [scrollPercentage, setScrollPercentage] = useState(0);
 
   useEffect(() => {
     checkIsScrollable();
@@ -24,13 +26,20 @@ const PlacesPanel = ({ state, updateState }) => {
     scrollTop = placesPanel.scrollTop;
     scrollHeight = placesPanel.scrollHeight;
     offsetHeight = placesPanel.offsetHeight;
-    // console.log(scrollTop);
-    // console.log(scrollHeight);
-    // console.log(offsetHeight);
+
+    placesPanel.onscroll = updateScrollValues;
 
     scrollHeight > offsetHeight
       ? setIsScrollable(true)
       : setIsScrollable(false);
+  };
+
+  const updateScrollValues = () => {
+    scrollTop = placesPanel.scrollTop;
+    scrollHeight = placesPanel.scrollHeight;
+    offsetHeight = placesPanel.offsetHeight;
+
+    setScrollPercentage((scrollTop / (scrollHeight - offsetHeight)) * 50);
   };
 
   useEffect(() => {
@@ -43,22 +52,28 @@ const PlacesPanel = ({ state, updateState }) => {
 
   return (
     <div className="places-container" id="places-container">
-      <div
-        className={`places-panel ${!isOpen ? "collapsed" : "open"}`}
-        id="places-panel"
-      >
-        <div className="places" id="places">
-          {places.map((place, index) => {
-            return (
-              <PlaceItem
-                place={place}
-                state={state}
-                updateState={updateState}
-                key={`place${index}`}
-                showHideResults={showHideResults}
-              ></PlaceItem>
-            );
-          })}
+      <div className={`places-panel-wrapper `}>
+        {isScrollable && (
+          <ScrollBar scrollPercentage={scrollPercentage} isOpen={isOpen} />
+        )}
+
+        <div
+          className={`places-panel ${!isOpen ? "collapsed" : "open"}`}
+          id="places-panel"
+        >
+          <div className="places" id="places">
+            {places.map((place, index) => {
+              return (
+                <PlaceItem
+                  place={place}
+                  state={state}
+                  updateState={updateState}
+                  key={`place${index}`}
+                  showHideResults={showHideResults}
+                ></PlaceItem>
+              );
+            })}
+          </div>
         </div>
       </div>
 
