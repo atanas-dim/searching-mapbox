@@ -8,12 +8,17 @@ const PlacesPanel = ({ state, updateState }) => {
   const [isScrollable, setIsScrollable] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    checkIsScrollable();
+    if (places.length) setIsOpen(true);
+  }, [places]);
+
   let placesPanel;
   let scrollTop = 0;
   let scrollHeight = 0;
   let offsetHeight = 0;
 
-  // Check if the panel is scrollable
+  // Check if the panel is scrollable to show toggle button at the bottom
   const checkIsScrollable = () => {
     placesPanel = document.getElementById("places-panel");
     scrollTop = placesPanel.scrollTop;
@@ -30,16 +35,7 @@ const PlacesPanel = ({ state, updateState }) => {
 
   useEffect(() => {
     checkIsScrollable();
-
-    let vh = window.innerHeight * 0.01;
-    // placesPanel = document.getElementById("places-panel");
-    placesPanel.style.maxHeight = 70 * vh + "px";
   }, []);
-
-  useEffect(() => {
-    checkIsScrollable();
-    if (places.length) setIsOpen(true);
-  }, [places]);
 
   const showHideResults = () => {
     setIsOpen(!isOpen);
@@ -48,7 +44,7 @@ const PlacesPanel = ({ state, updateState }) => {
   return (
     <div className="places-container" id="places-container">
       <div
-        className={`places-panel ${!isOpen ? "minimized" : ""}`}
+        className={`places-panel ${!isOpen ? "collapsed" : "open"}`}
         id="places-panel"
       >
         <div className="places" id="places">
@@ -59,11 +55,13 @@ const PlacesPanel = ({ state, updateState }) => {
                 state={state}
                 updateState={updateState}
                 key={`place${index}`}
+                showHideResults={showHideResults}
               ></PlaceItem>
             );
           })}
         </div>
       </div>
+
       {isScrollable && (
         <ShowHideButton
           showHideResults={showHideResults}

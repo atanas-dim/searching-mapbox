@@ -35,9 +35,6 @@ function App() {
       // We execute the same script as before
       vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
-
-      const placesPanel = document.getElementById("places-panel");
-      placesPanel.style.maxHeight = 70 * vh + "px";
     });
   }, []);
 

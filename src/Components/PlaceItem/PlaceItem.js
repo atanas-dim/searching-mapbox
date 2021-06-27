@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import mapbox from "!mapbox-gl";
 import "./PlaceItem.scss";
 
-const PlaceItem = ({ place, state, updateState }) => {
+const PlaceItem = ({ place, state, updateState, showHideResults }) => {
   const map = state.map;
 
   useEffect(() => {
@@ -40,6 +40,11 @@ const PlaceItem = ({ place, state, updateState }) => {
     console.log(event.key);
   };
 
+  const handleClick = () => {
+    goTo();
+    if (window.innerWidth < 420) showHideResults();
+  };
+
   const removePlace = () => {
     const filteredPlaces = state.places.filter(
       (existingPlace) => existingPlace.id !== place.id
@@ -49,7 +54,7 @@ const PlaceItem = ({ place, state, updateState }) => {
 
   return (
     <div className="place-item" onKeyDown={handleKeyDown}>
-      <div className="place-details" onClick={() => goTo()}>
+      <div className="place-details" onClick={() => handleClick()}>
         <h4>{place.name}</h4>
         <p>
           <span>{place.address ? place.address : ""}</span>

@@ -16,6 +16,7 @@ div.places-container {
     border-radius: 24px;
     margin-bottom: 10px;
     box-shadow: var(--shadow-controls);
+    transition: max-height 0.3s ease-in-out;
 
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
@@ -23,10 +24,14 @@ div.places-container {
       display: none;
     }
 
-    &.minimized {
-      height: 0px;
+    &.collapsed {
+      max-height: 0px;
       box-shadow: none;
       margin-bottom: 0;
+    }
+
+    &.open {
+      max-height: calc(var(--vh, 1vh) * 70);
     }
 
     div.place-item {
