@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import Map from "../Map/Map";
 import Toggler from "../Toggler/Toggler";
 import Search from "../Search/Search";
-// import "./App.scss";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import "./App.scss";
 
 function App() {
   const [state, setState] = useState({
@@ -61,6 +62,15 @@ function App() {
     <div className="App">
       <Search state={state} updateState={updateState}></Search>
       <Toggler state={state} updateState={updateState}></Toggler>
+      <div className="mapboxgl-ctrl mapboxgl-ctrl-group github-container">
+        <a
+          href="https://github.com/atanas-dim/searching-mapbox/"
+          className="github-link"
+        >
+          <GitHubIcon />
+        </a>
+      </div>
+
       <Map state={state} updateState={updateState}></Map>
     </div>
   );

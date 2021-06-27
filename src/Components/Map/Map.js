@@ -29,7 +29,7 @@ const Map = ({ state, updateState }) => {
 
     //Start current user location on load
     map.on("load", function () {
-      // userLocation.trigger();
+      userLocation.trigger();
     });
 
     userLocation.on("trackuserlocationend", function (event) {

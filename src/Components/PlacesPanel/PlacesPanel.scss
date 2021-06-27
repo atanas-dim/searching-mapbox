@@ -56,23 +56,24 @@ div.places-container {
       border-radius: 24px;
 
       div.place-item {
-        background-color: var(--color-card);
+        // background-color: var(--color-card);
 
-        &.place-item:first-child {
-          border-radius: 22px 22px 0 0;
-        }
+        // &.place-item:first-child {
+        //   border-radius: 22px 22px 0 0;
+        // }
 
-        &.place-item:last-child {
-          border-radius: 0 0 22px 22px;
-        }
+        // &.place-item:last-child {
+        //   border-radius: 0 0 22px 22px;
+        // }
 
-        &.place-item:only-child {
-          border-radius: 22px;
-        }
-
-        &:hover {
-          background-color: var(--color-hover);
-        }
+        // &.place-item:only-child {
+        //   border-radius: 22px;
+        // }
+        // @media (hover: hover) {
+        //   &:hover {
+        //     background-color: var(--color-hover);
+        //   }
+        // }
       }
     }
   }
