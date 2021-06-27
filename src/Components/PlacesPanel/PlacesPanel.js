@@ -77,12 +77,10 @@ const PlacesPanel = ({ state, updateState }) => {
         </div>
       </div>
 
-      {isScrollable && (
-        <ShowHideButton
-          showHideResults={showHideResults}
-          buttonText={isOpen ? "Hide results" : "Show results"}
-        />
-      )}
+      <ShowHideButton
+        showHideResults={showHideResults}
+        buttonText={isOpen ? "Hide results" : "Show results"}
+      />
     </div>
   );
 };
