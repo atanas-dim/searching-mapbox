@@ -6,45 +6,12 @@ import "./PlacesPanel.scss";
 
 const PlacesPanel = ({ state, updateState }) => {
   const places = state.places;
-  const [isScrollable, setIsScrollable] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrollPercentage, setScrollPercentage] = useState(0);
+  // isOpen must be true on render for the scrollbar to work
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
-    checkIsScrollable();
     places.length ? setIsOpen(true) : setIsOpen(false);
   }, [places]);
-
-  let placesPanel;
-  let scrollTop = 0;
-  let scrollHeight = 0;
-  let offsetHeight = 0;
-
-  // Check if the panel is scrollable to show toggle button at the bottom
-  const checkIsScrollable = () => {
-    placesPanel = document.getElementById("places-panel");
-    scrollTop = placesPanel.scrollTop;
-    scrollHeight = placesPanel.scrollHeight;
-    offsetHeight = placesPanel.offsetHeight;
-
-    placesPanel.onscroll = updateScrollValues;
-
-    scrollHeight > offsetHeight
-      ? setIsScrollable(true)
-      : setIsScrollable(false);
-  };
-
-  const updateScrollValues = () => {
-    scrollTop = placesPanel.scrollTop;
-    scrollHeight = placesPanel.scrollHeight;
-    offsetHeight = placesPanel.offsetHeight;
-
-    setScrollPercentage((scrollTop / (scrollHeight - offsetHeight)) * 50);
-  };
-
-  useEffect(() => {
-    checkIsScrollable();
-  }, []);
 
   const showHideResults = () => {
     setIsOpen(!isOpen);
@@ -52,11 +19,7 @@ const PlacesPanel = ({ state, updateState }) => {
 
   return (
     <div className="places-container" id="places-container">
-      <div className={`places-panel-wrapper `}>
-        {isScrollable && (
-          <ScrollBar scrollPercentage={scrollPercentage} isOpen={isOpen} />
-        )}
-
+      <ScrollBar isOpen={isOpen}>
         <div
           className={`places-panel ${!isOpen ? "collapsed" : "open"}`}
           id="places-panel"
@@ -75,7 +38,7 @@ const PlacesPanel = ({ state, updateState }) => {
             })}
           </div>
         </div>
-      </div>
+      </ScrollBar>
 
       {places.length > 0 && (
         <ShowHideButton

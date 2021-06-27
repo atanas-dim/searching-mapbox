@@ -22,7 +22,6 @@ function App() {
     setState((prevState) => {
       return { ...prevState, ...settings };
     });
-    // console.log(state);
   };
 
   useEffect(() => {
@@ -38,7 +37,7 @@ function App() {
     });
   }, []);
 
-  // Set the theme
+  // Set the theme on the DOM element
   useEffect(() => {
     const root = document.documentElement;
 

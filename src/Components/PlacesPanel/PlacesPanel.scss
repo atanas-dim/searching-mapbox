@@ -19,6 +19,7 @@ div.places-container {
     box-shadow: var(--shadow-controls);
     transition: max-height 0.3s ease-in-out;
 
+    // Removing the default scrollbar
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {
