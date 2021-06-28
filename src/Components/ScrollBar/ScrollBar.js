@@ -22,14 +22,12 @@ const ScrollBar = ({ children, isOpen }) => {
     setScrollTop(scrollableElem.scrollTop);
     setScrollHeight(scrollableElem.scrollHeight);
     setOffsetHeight(scrollableElem.offsetHeight);
-    setScrollPercentage((scrollTop / (scrollHeight - offsetHeight)) * 50);
   };
 
   // This has to use children is the dependency array in order to update the scroll values with the rendered DOM element
   useEffect(() => {
     // Selecting the first child, which is the target element to have the scrollbar attached
     setScrollableElem(document.getElementById("scroll-wrapper").children[0]);
-    console.log(scrollableElem);
   }, [children]);
 
   useEffect(() => {
@@ -39,6 +37,10 @@ const ScrollBar = ({ children, isOpen }) => {
       checkIsScrollable();
     }
   }, [children, isOpen]);
+
+  useEffect(() => {
+    setScrollPercentage((scrollTop / (scrollHeight - offsetHeight)) * 50);
+  }, [scrollTop, scrollHeight, offsetHeight]);
 
   return (
     <div className="scroll-wrapper" id="scroll-wrapper">
