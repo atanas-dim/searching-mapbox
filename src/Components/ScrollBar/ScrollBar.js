@@ -12,7 +12,6 @@ const ScrollBar = ({ children, isOpen }) => {
 
   // Check if the panel is scrollable to show toggle button at the bottom
   const checkIsScrollable = () => {
-    console.log(scrollHeight, offsetHeight);
     scrollHeight > offsetHeight
       ? setIsScrollable(true)
       : setIsScrollable(false);
