@@ -1,4 +1,3 @@
-import { ControlCameraOutlined } from "@material-ui/icons";
 import React, { useState, useEffect } from "react";
 import "./ScrollBar.scss";
 
@@ -32,7 +31,9 @@ const ScrollBar = ({ children, isOpen }) => {
   useEffect(() => {
     if (scrollableElem) {
       updateScrollValues();
-      scrollableElem.onscroll = updateScrollValues;
+      scrollableElem.addEventListener("scroll", updateScrollValues, {
+        passive: true,
+      });
       checkIsScrollable();
     }
   }, [children, isOpen]);

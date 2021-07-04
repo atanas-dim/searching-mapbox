@@ -15,6 +15,7 @@ const Map = ({ state, updateState }) => {
       center: [state.longitude, state.latitude],
       zoom: state.zoom,
       attributionControl: false,
+      localIdeographFontFamily: "'Noto Sans', 'Noto Sans CJK SC', sans-serif",
       logoPosition: "bottom-right",
     });
 
