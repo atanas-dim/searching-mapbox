@@ -19,26 +19,26 @@ const PlacesPanel = ({ state, updateState }) => {
 
   return (
     <div className="places-container" id="places-container">
-      <ScrollBar isOpen={isOpen}>
-        <div
-          className={`places-panel ${!isOpen ? "collapsed" : "open"}`}
-          id="places-panel"
-        >
-          <div className="places" id="places">
-            {places.map((place, index) => {
-              return (
-                <PlaceItem
-                  place={place}
-                  state={state}
-                  updateState={updateState}
-                  key={`place${index}`}
-                  showHideResults={showHideResults}
-                ></PlaceItem>
-              );
-            })}
-          </div>
+      {/* <ScrollBar isOpen={isOpen}> */}
+      <div
+        className={`places-panel ${!isOpen ? "collapsed" : "open"}`}
+        id="places-panel"
+      >
+        <div className="places" id="places">
+          {places.map((place, index) => {
+            return (
+              <PlaceItem
+                place={place}
+                state={state}
+                updateState={updateState}
+                key={`place${index}`}
+                showHideResults={showHideResults}
+              ></PlaceItem>
+            );
+          })}
         </div>
-      </ScrollBar>
+      </div>
+      {/* </ScrollBar> */}
 
       {places.length > 0 && (
         <ShowHideButton

@@ -29,7 +29,7 @@ The projects uses the MapboxGl to search nearby places.
 ## Features
 
 - Search bar
-- Search results panel with custom scroll bar
+- Search results panel
 - Toggle results button
 - Light, dark and satellite theme toggler
 - Zoom controls and location tracking are from the original MapboxGL features

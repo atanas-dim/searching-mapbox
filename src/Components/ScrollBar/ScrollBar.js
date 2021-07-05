@@ -49,7 +49,7 @@ const ScrollBar = ({ children, isOpen }) => {
       {isScrollable && (
         <div
           className="scroll-track"
-          style={{ height: `${isOpen ? "100%" : 0}` }}
+          style={{ display: `${isOpen ? "block" : "none"}` }}
         >
           <div
             className="scroll-thumb"
