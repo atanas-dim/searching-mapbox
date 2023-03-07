@@ -1,15 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapbox from "!mapbox-gl";
 import "./Map.scss";
 
 const Map = ({ state, updateState }) => {
+  const mapRef = useRef(null);
+
   useEffect(() => {
+    if (mapRef.current) return;
+
     mapbox.accessToken =
       "pk.eyJ1IjoiYXRhbmFzZGltIiwiYSI6ImNrcHI5OWwxNTAyOGkycXBzY3poenZzbmIifQ.89P2_0OkKWuRAd93Od68KQ";
 
     // Creates a map instance
-    const map = new mapbox.Map({
+    mapRef.current = new mapbox.Map({
       container: "map",
       style: state.style,
       center: [state.longitude, state.latitude],
@@ -26,10 +30,10 @@ const Map = ({ state, updateState }) => {
       },
       trackUserLocation: true,
     });
-    map.addControl(userLocation, "top-right");
+    mapRef.current.addControl(userLocation, "top-right");
 
-    //Start current user location on load
-    map.on("load", function () {
+    // Start current user location on load
+    mapRef.current.on("load", function () {
       userLocation.trigger();
     });
 
@@ -48,11 +52,11 @@ const Map = ({ state, updateState }) => {
     });
 
     // Adds navigation controls
-    const navigation = new mapbox.NavigationControl();
-    map.addControl(navigation, "top-right");
+    // const navigation = new mapbox.NavigationControl();
+    // mapRef.current.addControl(navigation, "top-right");
 
     //Add this map instance to the app state
-    updateState({ map: map });
+    updateState({ map: mapRef.current });
   }, []);
 
   useEffect(() => {
@@ -61,7 +65,14 @@ const Map = ({ state, updateState }) => {
     }
   }, [state.style]);
 
-  return <div id="map"></div>;
+  return (
+    <>
+      <div id="map"></div>
+      <button onClick={() => mapRef.current.zoomIn()} style={{ zIndex: 1000 }}>
+        Zoom in{" "}
+      </button>
+    </>
+  );
 };
 
 export default Map;
