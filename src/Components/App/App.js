@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Map from "../Map/Map";
 import Toggler from "../Toggler/Toggler";
 import Search from "../Search/Search";
-import GitHubIcon from "@material-ui/icons/GitHub";
+
 import "./App.scss";
 
 function App() {
@@ -71,7 +71,8 @@ function App() {
           href="https://github.com/atanas-dim/searching-mapbox/"
           className="github-link"
         >
-          <GitHubIcon />
+          GitHub
+          {/* <GitHubIcon /> */}
         </a>
       </div>
 
