@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Map from "../Map/Map";
-import Toggler from "../Toggler/Toggler";
-import Search from "../Search/Search";
+import Map from "../map/Map";
+import Toggler from "../toggler/Toggler";
+import Search from "../search/Search";
 
 import "./App.scss";
 

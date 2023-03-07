@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SearchResults from "../SearchResults/SearchResults";
+import SearchResults from "../searchResults/SearchResults";
 import "./Search.scss";
 
 const Search = ({ state, updateState }) => {
