@@ -9,8 +9,7 @@ const Map = ({ state, updateState }) => {
   useEffect(() => {
     if (mapRef.current) return;
 
-    mapbox.accessToken =
-      "pk.eyJ1IjoiYXRhbmFzZGltIiwiYSI6ImNrcHI5OWwxNTAyOGkycXBzY3poenZzbmIifQ.89P2_0OkKWuRAd93Od68KQ";
+    mapbox.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
     // Creates a map instance
     mapRef.current = new mapbox.Map({
@@ -34,7 +33,7 @@ const Map = ({ state, updateState }) => {
 
     // Start current user location on load
     mapRef.current.on("load", function () {
-      userLocation.trigger();
+      // userLocation.trigger();
     });
 
     userLocation.on("trackuserlocationend", function (event) {
