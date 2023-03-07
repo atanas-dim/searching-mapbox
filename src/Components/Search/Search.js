@@ -32,7 +32,7 @@ const Search = ({ state, updateState }) => {
 
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchState.value}.json?limit=10&proximity=${proximity}&access_token=${accessToken}`;
 
-    const placesData = await fetch(url)
+    await fetch(url)
       .then((response) => {
         if (response.ok) {
           return response.json();
