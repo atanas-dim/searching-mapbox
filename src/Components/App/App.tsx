@@ -19,7 +19,7 @@ function App() {
   });
 
   //Used to update App state from children components
-  const updateState = (settings) => {
+  const updateState = (settings: any) => {
     setState((prevState) => {
       return { ...prevState, ...settings };
     });
