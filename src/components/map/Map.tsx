@@ -1,15 +1,15 @@
-import React, { useEffect, useRef } from "react";
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import mapbox from "!mapbox-gl";
+import React, { useEffect } from "react";
+import mapbox from "mapbox-gl";
 import "./Map.scss";
+import { useMap } from "src/context/MapContext";
 
-const Map = ({ state, updateState }) => {
-  const mapRef = useRef(null);
+const Map = ({ state, updateState }: any) => {
+  const { map: mapRef } = useMap();
 
   useEffect(() => {
     if (mapRef.current) return;
 
-    mapbox.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
+    mapbox.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || "";
 
     // Creates a map instance
     mapRef.current = new mapbox.Map({
@@ -36,16 +36,16 @@ const Map = ({ state, updateState }) => {
       // userLocation.trigger();
     });
 
-    userLocation.on("trackuserlocationend", function (event) {
-      const longitude = event.target._accuracyCircleMarker._lngLat.lng;
-      const latitude = event.target._accuracyCircleMarker._lngLat.lat;
+    userLocation.on("trackuserlocationend", (event: any): void => {
+      const longitude = event?.target._accuracyCircleMarker._lngLat.lng;
+      const latitude = event?.target._accuracyCircleMarker._lngLat.lat;
 
       updateState({ longitude: longitude, latitude: latitude });
     });
 
-    userLocation.on("geolocate", function (event) {
-      const longitude = event.target._accuracyCircleMarker._lngLat.lng;
-      const latitude = event.target._accuracyCircleMarker._lngLat.lat;
+    userLocation.on("geolocate", (event: any): void => {
+      const longitude = event?.target._accuracyCircleMarker._lngLat.lng;
+      const latitude = event?.target._accuracyCircleMarker._lngLat.lat;
 
       updateState({ longitude: longitude, latitude: latitude });
     });
@@ -56,13 +56,20 @@ const Map = ({ state, updateState }) => {
 
     //Add this map instance to the app state
     updateState({ map: mapRef.current });
-  }, []);
+  }, [
+    mapRef,
+    state.latitude,
+    state.longitude,
+    state.style,
+    state.zoom,
+    updateState,
+  ]);
 
   useEffect(() => {
     if (state.map) {
       state.map.setStyle(state.style);
     }
-  }, [state.style]);
+  }, [state.map, state.style]);
 
   return (
     <>

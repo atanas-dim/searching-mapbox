@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Map from "../map/Map";
 import Toggler from "../toggler/Toggler";
 import Search from "../search/Search";
-
+import { withMapProvider } from "src/context/MapContext";
 import "./App.scss";
 
 function App() {
@@ -64,7 +64,7 @@ function App() {
 
   return (
     <div className="App">
-      <Search state={state} updateState={updateState}></Search>
+      {/* <Search state={state} updateState={updateState}></Search>
       <Toggler state={state} updateState={updateState}></Toggler>
       <div className="mapboxgl-ctrl mapboxgl-ctrl-group github-container">
         <a
@@ -72,13 +72,13 @@ function App() {
           className="github-link"
         >
           GitHub
-          {/* <GitHubIcon /> */}
+      
         </a>
-      </div>
+      </div> */}
 
       <Map state={state} updateState={updateState}></Map>
     </div>
   );
 }
 
-export default App;
+export default withMapProvider(App);
