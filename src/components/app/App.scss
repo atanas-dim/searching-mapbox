@@ -1,0 +1,15 @@
+div.github-container {
+  z-index: 1;
+  position: fixed;
+  right: 10px;
+  bottom: 50px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a.github-link {
+    color: var(--color-text);
+  }
+}
