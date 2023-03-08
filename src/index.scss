@@ -1,6 +1,7 @@
 @import "./styles/base";
 @import "./styles/themes";
-@import "./styles/_mapbox-custom-style.scss";
+@import "mapbox-gl/dist/mapbox-gl.css";
+// @import "./styles/_mapbox-custom-style.scss";
 html {
   font-size: 20px;
 }

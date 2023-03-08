@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SearchResults from "../SearchResults/SearchResults";
+import SearchResults from "../searchResults/SearchResults";
 import "./Search.scss";
 
 const Search = ({ state, updateState }) => {
@@ -26,14 +26,13 @@ const Search = ({ state, updateState }) => {
       return { ...prevState, isLoading: true, error: false };
     });
 
-    const accessToken =
-      "pk.eyJ1IjoiYXRhbmFzZGltIiwiYSI6ImNrcHI5OWwxNTAyOGkycXBzY3poenZzbmIifQ.89P2_0OkKWuRAd93Od68KQ";
+    const accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
     const proximity = `${state.longitude}, ${state.latitude}`;
 
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchState.value}.json?limit=10&proximity=${proximity}&access_token=${accessToken}`;
 
-    const placesData = await fetch(url)
+    await fetch(url)
       .then((response) => {
         if (response.ok) {
           return response.json();

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Map from "../Map/Map";
-import Toggler from "../Toggler/Toggler";
-import Search from "../Search/Search";
-import GitHubIcon from "@material-ui/icons/GitHub";
+import Map from "../map/Map";
+import Toggler from "../toggler/Toggler";
+import Search from "../search/Search";
+
 import "./App.scss";
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
   });
 
   //Used to update App state from children components
-  const updateState = (settings) => {
+  const updateState = (settings: any) => {
     setState((prevState) => {
       return { ...prevState, ...settings };
     });
@@ -71,7 +71,8 @@ function App() {
           href="https://github.com/atanas-dim/searching-mapbox/"
           className="github-link"
         >
-          <GitHubIcon />
+          GitHub
+          {/* <GitHubIcon /> */}
         </a>
       </div>
 

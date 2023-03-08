@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import PlaceItem from "../PlaceItem/PlaceItem";
-import ShowHideButton from "../ShowHideButton/ShowHideButton";
-import ScrollBar from "../ScrollBar/ScrollBar";
+import PlaceItem from "../placeItem/PlaceItem";
+import ShowHideButton from "../showHideButton/ShowHideButton";
 import "./PlacesPanel.scss";
 
 const PlacesPanel = ({ state, updateState }) => {
@@ -19,7 +18,6 @@ const PlacesPanel = ({ state, updateState }) => {
 
   return (
     <div className="places-container" id="places-container">
-      {/* <ScrollBar isOpen={isOpen}> */}
       <div
         className={`places-panel ${!isOpen ? "collapsed" : "open"}`}
         id="places-panel"
@@ -38,7 +36,6 @@ const PlacesPanel = ({ state, updateState }) => {
           })}
         </div>
       </div>
-      {/* </ScrollBar> */}
 
       {places.length > 0 && (
         <ShowHideButton
