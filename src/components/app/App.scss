@@ -1,15 +1,7 @@
-div.github-container {
-  z-index: 1;
+div#map {
   position: fixed;
-  right: 10px;
-  bottom: 50px;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  a.github-link {
-    color: var(--color-text);
-  }
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
 }
