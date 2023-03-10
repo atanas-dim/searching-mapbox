@@ -4,23 +4,10 @@ import React, {
   FC,
   PropsWithChildren,
   useContext,
-  useRef,
   useState,
-  useCallback,
-  MutableRefObject,
 } from "react";
 
-import mapbox, { Control, GeolocateControl, Map } from "mapbox-gl";
-
-type ContextValue = {
-  mapRef: MutableRefObject<Map | undefined>;
-  geolocControlRef: MutableRefObject<GeolocateControl | undefined>;
-};
-
-const INITIAL_STATE = {
-  mapRef: { current: undefined },
-  geolocControlRef: { current: undefined },
-};
+import mapboxgl, { Map } from "mapbox-gl";
 
 type MapConfig = {
   latitude: number;
@@ -31,7 +18,7 @@ type MapConfig = {
   // places: [// {name: "Test place 1", latitude: 51.509865, longitude: -0.118092},];
 };
 
-const MAP_CONFIG: MapConfig = {
+const INITIAL_MAP_CONFIG: MapConfig = {
   latitude: 51.509865,
   longitude: -0.118092,
   style: "mapbox://styles/mapbox/dark-v10",
@@ -41,96 +28,55 @@ const MAP_CONFIG: MapConfig = {
   //   // {name: "Test place 1", latitude: 51.509865, longitude: -0.118092},
   // ],
 };
+
+type ContextValue = {
+  map: Map | undefined;
+};
+
+const INITIAL_STATE = {
+  map: undefined,
+};
+
 export const MapContext = createContext<ContextValue>(INITIAL_STATE);
 
 export const MapProvider: FC<PropsWithChildren> = ({ children }) => {
-  const mapRef = useRef<Map>();
-  const geolocControlRef = useRef<GeolocateControl>();
-
-  const [state, setState] = useState<MapConfig>(MAP_CONFIG);
-
-  const updateState = useCallback((state: Partial<MapConfig>) => {
-    setState((prevState) => {
-      return { ...prevState, ...state };
-    });
-  }, []);
+  const [map, setMap] = useState<Map>();
 
   useEffect(() => {
-    if (mapRef.current) return;
+    if (!map) {
+      const mapbox = new mapboxgl.Map({
+        accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || "",
+        container: "map",
+        style: INITIAL_MAP_CONFIG.style,
+        center: [INITIAL_MAP_CONFIG.longitude, INITIAL_MAP_CONFIG.latitude],
+        zoom: INITIAL_MAP_CONFIG.zoom,
+        attributionControl: false,
+        localIdeographFontFamily: "'Noto Sans', 'Noto Sans CJK SC', sans-serif",
+        logoPosition: "bottom-right",
+      });
 
-    // Creates a map instance
-    mapRef.current = new mapbox.Map({
-      accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || "",
-      container: "map",
-      style: state.style,
-      center: [state.longitude, state.latitude],
-      zoom: state.zoom,
-      attributionControl: false,
-      localIdeographFontFamily: "'Noto Sans', 'Noto Sans CJK SC', sans-serif",
-      logoPosition: "bottom-right",
-    });
-
-    // Adds user tracker
-    geolocControlRef.current = new mapbox.GeolocateControl({
-      positionOptions: {
-        enableHighAccuracy: true,
-      },
-      trackUserLocation: true,
-      showUserHeading: true,
-    });
-
-    mapRef.current.addControl(geolocControlRef.current);
-
-    geolocControlRef.current.on("trackuserlocationend", (event: any): void => {
-      console.log("HERE 1");
-      const longitude = event?.target._accuracyCircleMarker._lngLat.lng;
-      const latitude = event?.target._accuracyCircleMarker._lngLat.lat;
-
-      updateState({ longitude, latitude });
-    });
-
-    geolocControlRef.current.on("geolocate", (event: any): void => {
-      console.log("HERE 2");
-      const longitude = event?.target._accuracyCircleMarker._lngLat.lng;
-      const latitude = event?.target._accuracyCircleMarker._lngLat.lat;
-
-      updateState({ longitude, latitude });
-    });
-
-    // Remove the default geoloc control button/toggler
-    document.querySelector(".mapboxgl-control-container")?.remove();
-  }, [
-    mapRef,
-    state.latitude,
-    state.longitude,
-    state.style,
-    state.zoom,
-    updateState,
-  ]);
-
-  useEffect(() => {
-    if (mapRef.current) {
-      mapRef.current.setStyle(state.style);
+      setMap(mapbox);
     }
-  }, [state.style]);
+  }, [map]);
 
-  return (
-    <MapContext.Provider value={{ mapRef, geolocControlRef }}>
-      {children}
-    </MapContext.Provider>
-  );
+  // useEffect(() => {
+  //   if (mapRef.current) {
+  //     mapRef.current.setStyle(state.style);
+  //   }
+  // }, [state.style]);
+
+  return <MapContext.Provider value={{ map }}>{children}</MapContext.Provider>;
 };
 
 export const useMap = () => {
   const context = useContext(MapContext);
 
-  const { mapRef, geolocControlRef } = context;
+  const { map } = context;
 
-  const zoomIn = () => mapRef.current?.zoomIn();
-  const zoomOut = () => mapRef.current?.zoomOut();
-  const findUserLocation = () => geolocControlRef.current?.trigger();
+  const zoomIn = () => map?.zoomIn();
+  const zoomOut = () => map?.zoomOut();
 
-  return { ...context, zoomIn, zoomOut, findUserLocation };
+  return { map, zoomIn, zoomOut };
 };
 
 // The HOC can wrap a page component on private routes

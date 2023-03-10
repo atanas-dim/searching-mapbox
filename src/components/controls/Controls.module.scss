@@ -21,3 +21,23 @@
     }
   }
 }
+
+.trackingActive {
+  animation: pulse-bg-color 2s infinite;
+}
+
+.geolocActive {
+  background-color: var(--color-hover2) !important;
+}
+
+@keyframes pulse-bg-color {
+  0% {
+    background-color: var(--color-ctrl-btn);
+  }
+  50% {
+    background-color: var(--color-hover);
+  }
+  100% {
+    background-color: var(--color-ctrl-btn);
+  }
+}
