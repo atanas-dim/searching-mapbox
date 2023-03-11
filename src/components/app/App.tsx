@@ -1,8 +1,11 @@
 import React from "react";
-import ThemePicker from "../themePicker/ThemePicker";
-// import Search from "../search/Search";
+
 import { withMapProvider } from "src/context/MapContext";
-import Controls from "../controls/Controls";
+
+import ThemePicker from "src/components/themePicker/ThemePicker";
+import Search from "src/components/search/Search";
+import Controls from "src/components/controls/Controls";
+
 import "./App.scss";
 
 function App() {
@@ -23,7 +26,7 @@ function App() {
       <div id="map" />
       <Controls />
       <ThemePicker />
-      {/* <Search/> */}
+      <Search />
     </>
   );
 }

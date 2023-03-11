@@ -1,0 +1,29 @@
+.container {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+
+  border-radius: 48px;
+
+  background-color: var(--color-input);
+  box-shadow: var(--shadow-controls);
+
+  overflow: hidden;
+
+  form {
+    border-radius: 48px;
+    input {
+      border-radius: 48px;
+      background-color: transparent;
+      border: none;
+      padding: 12px 16px;
+      color: var(--color-text);
+    }
+  }
+}
+
+.popup {
+  > p {
+    font-size: 0.8rem;
+  }
+}
