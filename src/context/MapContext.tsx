@@ -11,6 +11,8 @@ import React, {
 
 import mapboxgl, { Map } from "mapbox-gl";
 
+import { MapStyleConfig, MAP_STYLES, StyleName } from "src/resources/mapStyles";
+
 type MapConfig = {
   latitude: number;
   longitude: number;
@@ -29,36 +31,6 @@ const INITIAL_MAP_CONFIG: MapConfig = {
   // places: [
   //   // {name: "Test place 1", latitude: 51.509865, longitude: -0.118092},
   // ],
-};
-
-// TODO Move to resources
-export enum StyleName {
-  Satellite,
-  Light,
-  Dark,
-}
-
-type MapStyleConfig = {
-  name: string;
-  url: string;
-  theme: "light" | "dark";
-};
-export const MAP_STYLES: { [key in StyleName]: MapStyleConfig } = {
-  [StyleName.Satellite]: {
-    name: "Satellite",
-    url: "mapbox://styles/mapbox/satellite-streets-v11",
-    theme: "light",
-  },
-  [StyleName.Light]: {
-    name: "Light",
-    url: "mapbox://styles/mapbox/light-v10",
-    theme: "light",
-  },
-  [StyleName.Dark]: {
-    name: "Dark",
-    url: "mapbox://styles/mapbox/dark-v10",
-    theme: "dark",
-  },
 };
 
 type ContextValue = {
