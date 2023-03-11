@@ -1,4 +1,4 @@
-@mixin base-button {
+@mixin base {
   height: 48px;
   padding: 4px 12px;
   border-radius: 48px;
@@ -14,6 +14,6 @@
 }
 
 @mixin icon-button {
-  @include base-button;
+  @include base;
   width: 48px;
 }

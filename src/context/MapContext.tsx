@@ -5,6 +5,8 @@ import React, {
   PropsWithChildren,
   useContext,
   useState,
+  SetStateAction,
+  Dispatch,
 } from "react";
 
 import mapboxgl, { Map } from "mapbox-gl";
@@ -29,18 +31,53 @@ const INITIAL_MAP_CONFIG: MapConfig = {
   // ],
 };
 
+// TODO Move to resources
+export enum StyleName {
+  Satellite,
+  Light,
+  Dark,
+}
+
+type MapStyleConfig = {
+  name: string;
+  url: string;
+  theme: "light" | "dark";
+};
+export const MAP_STYLES: { [key in StyleName]: MapStyleConfig } = {
+  [StyleName.Satellite]: {
+    name: "Satellite",
+    url: "mapbox://styles/mapbox/satellite-streets-v11",
+    theme: "light",
+  },
+  [StyleName.Light]: {
+    name: "Light",
+    url: "mapbox://styles/mapbox/light-v10",
+    theme: "light",
+  },
+  [StyleName.Dark]: {
+    name: "Dark",
+    url: "mapbox://styles/mapbox/dark-v10",
+    theme: "dark",
+  },
+};
+
 type ContextValue = {
   map: Map | undefined;
+  style: MapStyleConfig;
+  setStyle: Dispatch<SetStateAction<MapStyleConfig>>;
 };
 
 const INITIAL_STATE = {
   map: undefined,
+  style: MAP_STYLES[StyleName.Dark],
+  setStyle: () => {},
 };
 
 export const MapContext = createContext<ContextValue>(INITIAL_STATE);
 
 export const MapProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [map, setMap] = useState<Map>();
+  const [map, setMap] = useState<Map | undefined>(INITIAL_STATE.map);
+  const [style, setStyle] = useState<MapStyleConfig>(INITIAL_STATE.style); // TODO Check for user preference from OS
 
   useEffect(() => {
     if (!map) {
@@ -59,24 +96,31 @@ export const MapProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   }, [map]);
 
-  // useEffect(() => {
-  //   if (mapRef.current) {
-  //     mapRef.current.setStyle(state.style);
-  //   }
-  // }, [state.style]);
+  useEffect(() => {
+    if (map) {
+      map.setStyle(style.url);
+      if (style.theme === "dark")
+        document.documentElement.classList.add("dark");
+      else document.documentElement.classList.remove("dark");
+    }
+  }, [map, style]);
 
-  return <MapContext.Provider value={{ map }}>{children}</MapContext.Provider>;
+  return (
+    <MapContext.Provider value={{ map, style, setStyle }}>
+      {children}
+    </MapContext.Provider>
+  );
 };
 
 export const useMap = () => {
   const context = useContext(MapContext);
 
-  const { map } = context;
+  const { map, style, setStyle } = context;
 
   const zoomIn = () => map?.zoomIn();
   const zoomOut = () => map?.zoomOut();
 
-  return { map, zoomIn, zoomOut };
+  return { map, zoomIn, zoomOut, style, setStyle };
 };
 
 // The HOC can wrap a page component on private routes
