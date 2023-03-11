@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import { MAP_STYLES, StyleName, useMap } from "src/context/MapContext";
+import { useMap } from "src/context/MapContext";
+import { MAP_STYLES, StyleName } from "src/resources/mapStyles";
 import styles from "./ThemePicker.module.scss";
 
 const StylePicker: FC = () => {

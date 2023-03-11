@@ -1,3 +1,5 @@
+/* Update var names with shade numbers grey10, grey20 etc to not duplicate values*/
+
 :root {
   --color-bg: #e0e0e0;
   --color-input: #ffffff;
@@ -19,7 +21,7 @@
 
 .dark {
   --color-bg: #181818;
-  --color-input: #333333;
+  --color-input: #181818;
   --color-card: #333333;
   --color-ctrl-btn: #333333;
   --color-hover: #505050;
