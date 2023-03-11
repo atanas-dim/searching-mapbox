@@ -1,5 +1,6 @@
 import mapboxgl, { GeolocateControl, Map } from "mapbox-gl";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MapContext } from "src/context/MapContext";
 
 export enum BtnVariant {
   Off,
@@ -9,6 +10,7 @@ export enum BtnVariant {
 }
 
 const useGeolocControls = (map: Map | undefined) => {
+  const { setCurrentLocation } = useContext(MapContext);
   const [geolocControls, setGeolocControls] = useState<GeolocateControl>();
 
   const [btnVariant, setBtnVariant] = useState(BtnVariant.Off);
@@ -32,7 +34,7 @@ const useGeolocControls = (map: Map | undefined) => {
   useEffect(() => {
     if (!geolocControls) return;
 
-    const onTrackUserStart = (): void => {
+    const onTrackUserStart = (event: any): void => {
       if (btnVariant === BtnVariant.Off) setBtnVariant(BtnVariant.Tracking);
       if (btnVariant === BtnVariant.ActiveAway)
         setBtnVariant(BtnVariant.ActiveCentered);
@@ -40,13 +42,15 @@ const useGeolocControls = (map: Map | undefined) => {
 
     geolocControls.on("trackuserlocationstart", onTrackUserStart);
 
-    const onTrackUserEnd = (): void => {
+    const onTrackUserEnd = (event: any): void => {
       setBtnVariant(BtnVariant.ActiveAway);
     };
 
     geolocControls.on("trackuserlocationend", onTrackUserEnd);
 
-    const onGeolocate = (): void => {
+    const onGeolocate = (event: any): void => {
+      const { latitude, longitude } = event.coords || {};
+      setCurrentLocation({ longitude: longitude, latitude: latitude });
       setBtnVariant(BtnVariant.ActiveCentered);
     };
 
@@ -59,8 +63,10 @@ const useGeolocControls = (map: Map | undefined) => {
 
     geolocControls.on("error", onError);
 
-    // Remove the default geoloc control button/toggler
-    document.querySelector(".mapboxgl-control-container")?.remove();
+    // Remove the default controls containers
+    document.querySelector(".mapboxgl-ctrl-top-right")?.remove();
+    document.querySelector(".mapboxgl-ctrl-top-left")?.remove();
+    document.querySelector(".mapboxgl-ctrl-bottom-left")?.remove();
 
     return () => {
       geolocControls.off("trackuserlocationstart", onTrackUserStart);
@@ -68,7 +74,7 @@ const useGeolocControls = (map: Map | undefined) => {
       geolocControls.off("geolocate", onGeolocate);
       geolocControls.off("error", onError);
     };
-  }, [btnVariant, geolocControls]);
+  }, [btnVariant, geolocControls, setCurrentLocation]);
 
   const handleGeolocClick = () => {
     geolocControls?.trigger();
