@@ -19,15 +19,18 @@
     &:last-of-type {
       margin-bottom: 0;
     }
+
+    &.tracking {
+      color: var(--color-highlight);
+      animation: pulse-bg-color 2s infinite;
+      > svg {
+        animation: rotate 2s infinite;
+      }
+    }
+    &.active {
+      color: var(--color-highlight);
+    }
   }
-}
-
-.trackingActive {
-  animation: pulse-bg-color 2s infinite;
-}
-
-.geolocActive {
-  background-color: var(--color-hover2) !important;
 }
 
 @keyframes pulse-bg-color {
@@ -35,9 +38,18 @@
     background-color: var(--color-ctrl-btn);
   }
   50% {
-    background-color: var(--color-hover);
+    background-color: var(--color-hover2);
   }
   100% {
     background-color: var(--color-ctrl-btn);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
