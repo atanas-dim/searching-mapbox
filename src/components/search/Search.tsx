@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useMap } from "src/context/MapContext";
 // import SearchResults from "../searchResults/SearchResults";
 import styles from "./Search.module.scss";
-import mapboxgl from "mapbox-gl";
+import mapboxgl, { Marker } from "mapbox-gl";
+import { findNearbyPlaces } from "src/resources/search";
 
 type PlaceContext = {
   id: string;
@@ -16,17 +17,10 @@ type Place = {
   context: PlaceContext[];
 };
 
-type SearchResult = {
-  id: number;
-  name: string;
-  longitude: number;
-  latitude: number;
-  address: string;
-  context: PlaceContext[];
-};
-
 const Search = () => {
-  const { currentLocation, map } = useMap();
+  const { currentLocation, map, goToPlace } = useMap();
+
+  const markers = useRef<Marker[]>([]);
 
   const [searchState, setSearchState] = useState({
     value: "",
@@ -40,8 +34,28 @@ const Search = () => {
     });
   };
 
-  const createMarkers = (results: SearchResult[]): void => {
-    //
+  const clearMarkers = () => {
+    markers.current.forEach((marker) => marker.remove());
+  };
+
+  const createMarkers = (results: Place[]): void => {
+    if (!map) return;
+
+    results.forEach((result) => {
+      const marker = new mapboxgl.Marker({ color: "#42a5f5" }) // TODO Create named var for blue
+        .setLngLat({
+          lng: result.center[0],
+          lat: result.center[1],
+        })
+        .setPopup(
+          new mapboxgl.Popup({ offset: 25 }).setHTML(
+            `<div class="${styles.popup}"}><h4>${result.text}</h3><p>${result.properties.address}</p></div>`
+          )
+        )
+        .addTo(map);
+
+      markers.current.push(marker);
+    });
   };
 
   const handleSubmit = async (event: any) => {
@@ -51,59 +65,21 @@ const Search = () => {
 
     if (!searchState.value.trim()) return;
 
+    if (markers.current.length) clearMarkers();
+
     setSearchState((prevState) => {
       return { ...prevState, isLoading: true, error: false };
     });
 
-    const accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
-    const proximity = `${currentLocation.longitude},${currentLocation.latitude}`;
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchState.value}.json?limit=10&proximity=${proximity}&access_token=${accessToken}`;
-
-    // TODO Move outside component
-    // Add axios if needed
-    await fetch(url)
+    findNearbyPlaces(searchState.value, currentLocation)
       .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Something went wrong");
-        }
-      })
-      .then((jsonResponse) => {
         setSearchState((prevState) => {
           return { ...prevState, isLoading: false, error: false };
         });
 
-        const results: SearchResult[] = jsonResponse.features.map(
-          (place: Place, index: number) => {
-            return {
-              id: index,
-              name: place.text,
-              longitude: place.center[0],
-              latitude: place.center[1],
-              address: place.properties.address,
-              context: place.context,
-            };
-          }
-        );
-
-        createMarkers(results);
-
-        console.log({ results });
-
-        results.forEach((result) => {
-          new mapboxgl.Marker({ color: "#42a5f5" }) // TODO Create named var for blue
-            .setLngLat({
-              lng: result.longitude,
-              lat: result.latitude,
-            })
-            .setPopup(
-              new mapboxgl.Popup({ offset: 25 }).setHTML(
-                `<h3>${result.name}</h3><p>${result.address}</p>`
-              )
-            )
-            .addTo(map);
-        });
+        const firstResult = response.features[0];
+        goToPlace(firstResult.center);
+        createMarkers(response.features);
       })
       .catch((error) => {
         console.error({ error });
@@ -111,10 +87,6 @@ const Search = () => {
           return { ...prevState, isLoading: false, error: true };
         });
       });
-
-    setSearchState((prevState) => {
-      return { ...prevState, value: "" };
-    });
   };
 
   return (

@@ -9,7 +9,7 @@ import React, {
   Dispatch,
 } from "react";
 
-import mapboxgl, { Map } from "mapbox-gl";
+import mapboxgl, { LngLatLike, Map } from "mapbox-gl";
 
 import { MapStyleConfig, MAP_STYLES, StyleName } from "src/resources/mapStyles";
 
@@ -25,7 +25,7 @@ const INITIAL_MAP_CONFIG: MapConfig = {
   zoom: 12,
 };
 
-type GeoLocation = {
+export type GeoLocation = {
   longitude: number;
   latitude: number;
 };
@@ -105,11 +105,18 @@ export const useMap = () => {
 
   const zoomIn = () => map?.zoomIn();
   const zoomOut = () => map?.zoomOut();
+  const goToPlace = (center: LngLatLike) =>
+    map?.easeTo({
+      center,
+      zoom: 16,
+      duration: 1800,
+    });
 
   return {
     map,
     zoomIn,
     zoomOut,
+    goToPlace,
     style,
     setStyle,
     currentLocation,
