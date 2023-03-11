@@ -9,49 +9,40 @@ import React, {
   Dispatch,
 } from "react";
 
-import mapboxgl, { LngLatLike, Map } from "mapbox-gl";
+import mapboxgl, { Map } from "mapbox-gl";
 
 import { MapStyleConfig, MAP_STYLES, StyleName } from "src/resources/mapStyles";
 
 type MapConfig = {
+  latitude: number;
+  longitude: number;
   style: string;
   theme: "light" | "dark" | "satellite";
   zoom: number;
+  // places: [// {name: "Test place 1", latitude: 51.509865, longitude: -0.118092},];
 };
 
 const INITIAL_MAP_CONFIG: MapConfig = {
+  latitude: 51.509865,
+  longitude: -0.118092,
   style: "mapbox://styles/mapbox/dark-v10",
   theme: "dark",
   zoom: 12,
-};
-
-export type GeoLocation = {
-  longitude: number;
-  latitude: number;
-};
-
-const INITIAL_LOCATION: GeoLocation = {
-  latitude: 51.509865,
-  longitude: -0.118092,
+  // places: [
+  //   // {name: "Test place 1", latitude: 51.509865, longitude: -0.118092},
+  // ],
 };
 
 type ContextValue = {
   map: Map | undefined;
   style: MapStyleConfig;
   setStyle: Dispatch<SetStateAction<MapStyleConfig>>;
-  currentLocation: GeoLocation;
-  setCurrentLocation: Dispatch<SetStateAction<GeoLocation>>;
 };
 
 const INITIAL_STATE = {
   map: undefined,
   style: MAP_STYLES[StyleName.Dark],
   setStyle: () => {},
-  currentLocation: {
-    latitude: 51.509865,
-    longitude: -0.118092,
-  },
-  setCurrentLocation: () => {},
 };
 
 export const MapContext = createContext<ContextValue>(INITIAL_STATE);
@@ -59,9 +50,6 @@ export const MapContext = createContext<ContextValue>(INITIAL_STATE);
 export const MapProvider: FC<PropsWithChildren> = ({ children }) => {
   const [map, setMap] = useState<Map | undefined>(INITIAL_STATE.map);
   const [style, setStyle] = useState<MapStyleConfig>(INITIAL_STATE.style); // TODO Check for user preference from OS
-  const [currentLocation, setCurrentLocation] = useState<GeoLocation>(
-    INITIAL_STATE.currentLocation
-  );
 
   useEffect(() => {
     if (!map) {
@@ -69,7 +57,7 @@ export const MapProvider: FC<PropsWithChildren> = ({ children }) => {
         accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || "",
         container: "map",
         style: INITIAL_MAP_CONFIG.style,
-        center: [INITIAL_LOCATION.longitude, INITIAL_LOCATION.latitude], // TODO Find relative coords by user IP
+        center: [INITIAL_MAP_CONFIG.longitude, INITIAL_MAP_CONFIG.latitude],
         zoom: INITIAL_MAP_CONFIG.zoom,
         attributionControl: false,
         localIdeographFontFamily: "'Noto Sans', 'Noto Sans CJK SC', sans-serif",
@@ -90,9 +78,7 @@ export const MapProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [map, style]);
 
   return (
-    <MapContext.Provider
-      value={{ map, style, setStyle, currentLocation, setCurrentLocation }}
-    >
+    <MapContext.Provider value={{ map, style, setStyle }}>
       {children}
     </MapContext.Provider>
   );
@@ -101,27 +87,12 @@ export const MapProvider: FC<PropsWithChildren> = ({ children }) => {
 export const useMap = () => {
   const context = useContext(MapContext);
 
-  const { map, style, setStyle, currentLocation, setCurrentLocation } = context;
+  const { map, style, setStyle } = context;
 
   const zoomIn = () => map?.zoomIn();
   const zoomOut = () => map?.zoomOut();
-  const goToPlace = (center: LngLatLike) =>
-    map?.easeTo({
-      center,
-      zoom: 16,
-      duration: 1800,
-    });
 
-  return {
-    map,
-    zoomIn,
-    zoomOut,
-    goToPlace,
-    style,
-    setStyle,
-    currentLocation,
-    setCurrentLocation,
-  };
+  return { map, zoomIn, zoomOut, style, setStyle };
 };
 
 // The HOC can wrap a page component on private routes
