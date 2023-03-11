@@ -1,70 +1,36 @@
-import React, { useEffect, useState } from "react";
-import Map from "../map/Map";
-import Toggler from "../toggler/Toggler";
-import Search from "../search/Search";
-
+import React, { useEffect } from "react";
+// import Toggler from "../toggler/Toggler";
+// import Search from "../search/Search";
+import { withMapProvider } from "src/context/MapContext";
 import "./App.scss";
+import Controls from "../controls/Controls";
 
 function App() {
-  const [state, setState] = useState({
-    map: null,
-    latitude: 51.509865,
-    longitude: -0.118092,
-    style: "mapbox://styles/mapbox/dark-v10",
-    theme: "dark",
-    zoom: 12,
-    places: [
-      // {name: "Test place 1", latitude: 51.509865, longitude: -0.118092},
-    ],
-  });
-
-  //Used to update App state from children components
-  const updateState = (settings: any) => {
-    setState((prevState) => {
-      return { ...prevState, ...settings };
-    });
-  };
-
-  useEffect(() => {
-    // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
-    let vh = window.innerHeight * 0.01;
-    // Then we set the value in the --vh custom property to the root of the document
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-
-    window.addEventListener(
-      "resize",
-      () => {
-        // We execute the same script as before
-        vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty("--vh", `${vh}px`);
-      },
-      { passive: true }
-    );
-  }, []);
-
   // Set the theme on the DOM element
   useEffect(() => {
     const root = document.documentElement;
 
-    switch (state.theme) {
-      case "light":
-        root.classList.add("light");
-        root.classList.remove("dark");
-        break;
-      case "dark":
-        root.classList.add("dark");
-        root.classList.remove("light");
-        break;
-      default:
-        root.classList.add("light");
-        root.classList.remove("dark");
-        break;
-    }
-  }, [state.theme]);
+    root.classList.add("dark");
+
+    // switch (state.theme) {
+    //   case "light":
+    //     root.classList.add("light");
+    //     root.classList.remove("dark");
+    //     break;
+    //   case "dark":
+    //     root.classList.add("dark");
+    //     root.classList.remove("light");
+    //     break;
+    //   default:
+    //     root.classList.add("light");
+    //     root.classList.remove("dark");
+    //     break;
+    // }
+  }, []);
 
   return (
-    <div className="App">
-      <Search state={state} updateState={updateState}></Search>
+    <div className="app">
+      {/* <Search state={state} updateState={updateState}></Search>
       <Toggler state={state} updateState={updateState}></Toggler>
       <div className="mapboxgl-ctrl mapboxgl-ctrl-group github-container">
         <a
@@ -72,13 +38,16 @@ function App() {
           className="github-link"
         >
           GitHub
-          {/* <GitHubIcon /> */}
+      
         </a>
-      </div>
+      </div> */}
 
-      <Map state={state} updateState={updateState}></Map>
+      <div id="map" />
+      <Controls />
+      {/* <ThemeToggler /> */}
+      {/* <Search/> */}
     </div>
   );
 }
 
-export default App;
+export default withMapProvider(App);

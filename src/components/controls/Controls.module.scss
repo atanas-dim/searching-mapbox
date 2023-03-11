@@ -1,0 +1,55 @@
+@use "../../styles/buttons.scss";
+
+.container {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  padding: 2px;
+  border-radius: 48px;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-controls);
+
+  > button {
+    @include buttons.icon-button;
+    margin-bottom: 2px;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    &.tracking {
+      color: var(--color-highlight);
+      animation: pulse-bg-color 2s infinite;
+      > svg {
+        animation: rotate 2s infinite;
+      }
+    }
+    &.active {
+      color: var(--color-highlight);
+    }
+  }
+}
+
+@keyframes pulse-bg-color {
+  0% {
+    background-color: var(--color-ctrl-btn);
+  }
+  50% {
+    background-color: var(--color-hover2);
+  }
+  100% {
+    background-color: var(--color-ctrl-btn);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

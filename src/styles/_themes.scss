@@ -1,4 +1,4 @@
-.light {
+:root {
   --color-bg: #e0e0e0;
   --color-input: #ffffff;
   --color-card: #ffffff;
@@ -15,18 +15,6 @@
   --color-scroll-thumb: #b7b7b7;
 
   --shadow-controls: 0 0 0 2px rgba(0, 0, 0, 0.3);
-
-  --zoom-in: url(../assets/add_black_24dp.svg);
-  --zoom-out: url(../assets/remove_black_24dp.svg);
-  --compass: url(../assets/compass_black_24dp.svg);
-  --close: url(../assets/add_black_24dp.svg);
-
-  --geolocate: url(../assets/location_black_24dp.svg); //
-  --geolocate-disabled: url(../assets/location_disabled_black_24dp.svg); //
-  --geolocate-active: url(../assets/location_active_24dp.svg); //
-  --geolocate-active-error: url(../assets/location_active_error_24dp.svg); //
-  --geolocate-background: url(../assets/location_background_24dp.svg); //
-  --geolocate-background-error: url(../assets/location_background_error_24dp.svg); //
 }
 
 .dark {
@@ -46,16 +34,4 @@
   --color-scroll-thumb: #808080;
 
   --shadow-controls: 0 0 0 2px rgba(255, 255, 255, 0.2);
-
-  --zoom-in: url(../assets/add_white_24dp.svg);
-  --zoom-out: url(../assets/remove_white_24dp.svg);
-  --compass: url(../assets/compass_white_24dp.svg);
-  --close: url(../assets/add_white_24dp.svg);
-
-  --geolocate: url(../assets/location_white_24dp.svg); //
-  --geolocate-disabled: url(../assets/location_disabled_white_24dp.svg); //
-  --geolocate-active: url(../assets/location_active_24dp.svg); //
-  --geolocate-active-error: url(../assets/location_active_error_24dp.svg); //
-  --geolocate-background: url(../assets/location_background_24dp.svg); //
-  --geolocate-background-error: url(../assets/location_background_error_24dp.svg); //
 }
