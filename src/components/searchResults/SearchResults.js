@@ -1,6 +1,6 @@
 import React from "react";
-import SearchMessage from "../SearchMessage/SearchMessage";
-import PlacesPanel from "../PlacesPanel/PlacesPanel";
+import SearchMessage from "../searchMessage/SearchMessage";
+import PlacesPanel from "../placesPanel/PlacesPanel";
 
 const SearchResults = ({ state, updateState, searchState }) => {
   if (searchState.isLoading) {

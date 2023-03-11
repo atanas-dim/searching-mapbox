@@ -1,0 +1,19 @@
+@mixin base {
+  height: 48px;
+  padding: 4px 12px;
+  border-radius: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: var(--color-ctrl-btn);
+  color: var(--color-text);
+  &:hover {
+    background-color: var(--color-hover);
+  }
+}
+
+@mixin icon-button {
+  @include base;
+  width: 48px;
+}
