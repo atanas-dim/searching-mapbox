@@ -1,5 +1,11 @@
-import React, { ChangeEvent, useRef, useState } from "react";
-import mapboxgl, { LngLat, LngLatLike, Marker } from "mapbox-gl";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  SyntheticEvent,
+  useRef,
+  useState,
+} from "react";
+import mapboxgl, { LngLatLike, Marker } from "mapbox-gl";
 
 import { useMap } from "src/context/MapContext";
 
@@ -72,12 +78,16 @@ const Search = () => {
     });
   };
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!map) return;
 
     if (!searchState.searchTerm.trim()) return;
+
+    const { target } = event;
+    const input = (target as HTMLFormElement)?.firstChild;
+    (input as HTMLInputElement)?.blur();
 
     if (markers.current.length) clearMarkers();
 

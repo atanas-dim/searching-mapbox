@@ -8,7 +8,7 @@
   cursor: pointer;
   background-color: var(--color-ctrl-btn);
   color: var(--color-text);
-  &:hover {
+  &:active {
     background-color: var(--color-hover);
   }
 }

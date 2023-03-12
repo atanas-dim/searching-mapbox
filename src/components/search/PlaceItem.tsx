@@ -4,6 +4,7 @@ import { Map, LngLatLike } from "mapbox-gl";
 import { Place } from "src/components/search/Search";
 
 import styles from "./PlaceItem.module.scss";
+import PlusIcon from "../icons/PlusIcon";
 
 type Props = {
   index: number;
@@ -36,7 +37,9 @@ const PlaceItem: FC<Props> = ({
       </div>
 
       <div className={styles.close} onClick={() => removePlace(index)}>
-        <button onClick={() => {}}>X</button>
+        <button onClick={() => {}}>
+          <PlusIcon />
+        </button>
       </div>
     </div>
   );

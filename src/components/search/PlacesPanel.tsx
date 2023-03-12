@@ -15,7 +15,7 @@ type Props = {
 const PlacesPanel: FC<Props> = ({ places, removePlace }) => {
   const { goToPlace } = useMap();
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     places.length ? setIsOpen(true) : setIsOpen(false);

@@ -16,7 +16,8 @@
     border-radius: 24px;
     margin-bottom: 10px;
     box-shadow: var(--shadow-controls);
-    transition: max-height 0.3s ease-in-out;
+
+    margin-bottom: 16px;
 
     // Removing the default scrollbar
     -ms-overflow-style: none; /* IE and Edge */
@@ -29,10 +30,13 @@
       max-height: 0px;
       box-shadow: none;
       margin-bottom: 0;
+
+      transition: box-shadow 0.6s ease-in-out, max-height 0.3s ease-in-out;
     }
 
     &.open {
-      max-height: calc(var(--vh, 1vh) * 70);
+      max-height: calc(100vh - 280px);
+      transition: box-shadow 0.2s ease-in-out, max-height 0.6s ease-in-out;
     }
 
     .item {

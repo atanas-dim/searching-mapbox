@@ -1,23 +1,25 @@
+@use "../../styles/buttons.scss";
+
 .container {
   width: 140px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 8px;
-  background-color: var(--color-bg);
+  background-color: var(--color-ctrl-btn);
   border-radius: 24px;
 
   box-shadow: var(--shadow-controls);
 
   > button {
+    @include buttons.base;
+
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 24px;
     padding: 5px 10px;
-    background: none;
-    cursor: pointer;
+
     color: var(--color-text-secondary);
     font-size: 0.8rem;
   }
