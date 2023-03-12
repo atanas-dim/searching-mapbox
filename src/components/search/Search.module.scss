@@ -1,18 +1,24 @@
 .container {
   position: fixed;
-  top: 16px;
-  left: 16px;
+  top: 0;
+  left: 0;
+  padding: 16px 0 0 16px;
+  width: 100%;
+  max-height: calc(100% - 60px);
+  max-width: 270px;
 
-  border-radius: 48px;
-
-  background-color: var(--color-input);
-  box-shadow: var(--shadow-controls);
-
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 
   form {
+    width: 100%;
     border-radius: 48px;
+    background-color: var(--color-input);
+    box-shadow: var(--shadow-controls);
+
     input {
+      width: 100%;
+      min-height: 48px;
       border-radius: 48px;
       background-color: transparent;
       border: none;
