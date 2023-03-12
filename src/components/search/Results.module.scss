@@ -1,0 +1,30 @@
+.container {
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-controls);
+  border-radius: 24px;
+
+  margin-top: 16px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.loading {
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error {
+  padding: 8px 16px;
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+}

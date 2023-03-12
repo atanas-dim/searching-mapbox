@@ -1,20 +1,31 @@
-import React, { useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
+import mapboxgl, { LngLat, LngLatLike, Marker } from "mapbox-gl";
+
 import { useMap } from "src/context/MapContext";
-// import SearchResults from "../searchResults/SearchResults";
-import styles from "./Search.module.scss";
-import mapboxgl, { Marker } from "mapbox-gl";
+
+import Results from "src/components/search/Results";
+
 import { findNearbyPlaces } from "src/resources/search";
+
+import styles from "./Search.module.scss";
 
 type PlaceContext = {
   id: string;
   mapbox_id: string;
   text: string;
 };
-type Place = {
+export type Place = {
   text: string;
-  center: number[];
+  center: LngLatLike;
   properties: { address: string };
   context: PlaceContext[];
+};
+
+type SearchState = {
+  searchTerm: string;
+  isLoading: boolean;
+  error: boolean;
+  results: Place[];
 };
 
 const Search = () => {
@@ -22,15 +33,16 @@ const Search = () => {
 
   const markers = useRef<Marker[]>([]);
 
-  const [searchState, setSearchState] = useState({
-    value: "",
+  const [searchState, setSearchState] = useState<SearchState>({
+    searchTerm: "",
     isLoading: false,
     error: false,
+    results: [],
   });
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchState((prevState) => {
-      return { ...prevState, value: event.target.value };
+      return { ...prevState, searchTerm: event.target.value };
     });
   };
 
@@ -42,10 +54,12 @@ const Search = () => {
     if (!map) return;
 
     results.forEach((result) => {
+      const [lng, lat] = result.center as number[];
+
       const marker = new mapboxgl.Marker({ color: "#42a5f5" }) // TODO Create named var for blue
         .setLngLat({
-          lng: result.center[0],
-          lat: result.center[1],
+          lng,
+          lat,
         })
         .setPopup(
           new mapboxgl.Popup({ offset: 25 }).setHTML(
@@ -63,7 +77,7 @@ const Search = () => {
 
     if (!map) return;
 
-    if (!searchState.value.trim()) return;
+    if (!searchState.searchTerm.trim()) return;
 
     if (markers.current.length) clearMarkers();
 
@@ -71,10 +85,15 @@ const Search = () => {
       return { ...prevState, isLoading: true, error: false };
     });
 
-    findNearbyPlaces(searchState.value, currentLocation)
+    findNearbyPlaces(searchState.searchTerm, currentLocation)
       .then((response) => {
         setSearchState((prevState) => {
-          return { ...prevState, isLoading: false, error: false };
+          return {
+            ...prevState,
+            isLoading: false,
+            error: false,
+            results: response.features,
+          };
         });
 
         const firstResult = response.features[0];
@@ -93,16 +112,24 @@ const Search = () => {
     <div className={styles.container}>
       <form onSubmit={handleSubmit}>
         <input
-          value={searchState.value}
+          value={searchState.searchTerm}
           onChange={handleChange}
           placeholder="Search for a place"
         />
       </form>
-      {/* <SearchResults
-        state={state}
-        updateState={updateState}
-        searchState={searchState}
-      /> */}
+      <Results
+        {...{
+          isLoading: searchState.isLoading,
+          error: searchState.error,
+          results: searchState.results,
+          markers,
+          updatePlaces: (updatedPlaces: Place[]) =>
+            setSearchState((prevState) => ({
+              ...prevState,
+              results: updatedPlaces,
+            })),
+        }}
+      />
     </div>
   );
 };

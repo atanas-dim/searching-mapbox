@@ -2,17 +2,19 @@
   position: fixed;
   top: 16px;
   left: 16px;
-
-  border-radius: 48px;
-
-  background-color: var(--color-input);
-  box-shadow: var(--shadow-controls);
-
-  overflow: hidden;
+  width: 100%;
+  max-width: 270px;
 
   form {
+    width: 100%;
     border-radius: 48px;
+    background-color: var(--color-input);
+    box-shadow: var(--shadow-controls);
+
+    overflow: hidden;
+
     input {
+      width: 100%;
       border-radius: 48px;
       background-color: transparent;
       border: none;
