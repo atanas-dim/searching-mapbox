@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { useMap } from "src/context/MapContext";
+import { useMap } from "src/hooks/useMap";
 import { MAP_STYLES, StyleName } from "src/resources/mapStyles";
 import styles from "./ThemePicker.module.scss";
 
