@@ -37,8 +37,6 @@ const useGeolocControls = (map: Map | undefined) => {
 
     const onTrackUserStart = (event: any): void => {
       if (btnVariant === BtnVariant.Off) setBtnVariant(BtnVariant.Tracking);
-      if (btnVariant === BtnVariant.ActiveAway)
-        setBtnVariant(BtnVariant.ActiveCentered);
     };
 
     geolocControls.on("trackuserlocationstart", onTrackUserStart);

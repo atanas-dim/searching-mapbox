@@ -3,7 +3,8 @@ import React, { type FC, useEffect, useState } from "react";
 import PlaceItem from "src/components/search/PlaceItem";
 import { Place } from "src/components/search/Search";
 import ShowHideButton from "src/components/showHideButton/ShowHideButton";
-import { useMap } from "src/context/MapContext";
+
+import { useMap } from "src/hooks/useMap";
 
 import styles from "./PlacesPanel.module.scss";
 

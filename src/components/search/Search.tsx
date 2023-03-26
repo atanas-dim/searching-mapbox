@@ -1,13 +1,7 @@
-import React, {
-  ChangeEvent,
-  FormEvent,
-  SyntheticEvent,
-  useRef,
-  useState,
-} from "react";
+import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
 import mapboxgl, { LngLatLike, Marker } from "mapbox-gl";
 
-import { useMap } from "src/context/MapContext";
+import { useMap } from "src/hooks/useMap";
 
 import Results from "src/components/search/Results";
 

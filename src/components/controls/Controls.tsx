@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { useMap } from "src/context/MapContext";
+import { useMap } from "src/hooks/useMap";
 import useGeolocControls, { BtnVariant } from "src/hooks/useGeolocControls";
 import GeolocActiveAwayIcon from "src/components/icons/GeolocActiveAwayIcon";
 import GeolocActiveIcon from "src/components/icons/GeolocActiveIcon";

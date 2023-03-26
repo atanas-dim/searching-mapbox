@@ -3,13 +3,12 @@ import React, {
   createContext,
   FC,
   PropsWithChildren,
-  useContext,
   useState,
   SetStateAction,
   Dispatch,
 } from "react";
 
-import mapboxgl, { LngLatLike, Map } from "mapbox-gl";
+import mapboxgl, { Map } from "mapbox-gl";
 
 import { MapStyleConfig, MAP_STYLES, StyleName } from "src/resources/mapStyles";
 
@@ -97,32 +96,6 @@ export const MapProvider: FC<PropsWithChildren> = ({ children }) => {
       {children}
     </MapContext.Provider>
   );
-};
-
-export const useMap = () => {
-  const context = useContext(MapContext);
-
-  const { map, style, setStyle, currentLocation, setCurrentLocation } = context;
-
-  const zoomIn = () => map?.zoomIn();
-  const zoomOut = () => map?.zoomOut();
-  const goToPlace = (center: LngLatLike) =>
-    map?.easeTo({
-      center,
-      zoom: 16,
-      duration: 1800,
-    });
-
-  return {
-    map,
-    zoomIn,
-    zoomOut,
-    goToPlace,
-    style,
-    setStyle,
-    currentLocation,
-    setCurrentLocation,
-  };
 };
 
 export const withMapProvider = (Component: any) => {
