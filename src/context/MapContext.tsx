@@ -48,6 +48,7 @@ const INITIAL_STATE = {
   style: MAP_STYLES[StyleName.Dark],
   setStyle: () => {},
   currentLocation: {
+    // Defaults to London
     latitude: 51.509865,
     longitude: -0.118092,
   },
@@ -124,7 +125,6 @@ export const useMap = () => {
   };
 };
 
-// The HOC can wrap a page component on private routes
 export const withMapProvider = (Component: any) => {
   const WithMapProvider = (props: any) => {
     return (
