@@ -1,5 +1,5 @@
 import mapboxgl, { GeolocateControl, Map } from "mapbox-gl";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { MapContext } from "src/context/MapContext";
 
 export enum BtnVariant {
@@ -27,6 +27,7 @@ const useGeolocControls = (map: Map | undefined) => {
       });
 
       map.addControl(controls);
+
       setGeolocControls(controls);
     }
   }, [geolocControls, map]);
@@ -57,6 +58,7 @@ const useGeolocControls = (map: Map | undefined) => {
     geolocControls.on("geolocate", onGeolocate);
 
     const onError = (error: any): void => {
+      alert(error.message);
       console.error(error.message);
       setBtnVariant(BtnVariant.Off); // TODO This can be Error state with red colour
     };
@@ -76,13 +78,25 @@ const useGeolocControls = (map: Map | undefined) => {
     };
   }, [btnVariant, geolocControls, setCurrentLocation]);
 
-  const handleGeolocClick = () => {
+  const triggerGeolocation = useCallback(() => {
     geolocControls?.trigger();
+  }, [geolocControls]);
+
+  const handleGeolocClick = () => {
+    triggerGeolocation();
 
     if (btnVariant === BtnVariant.ActiveCentered) {
       setBtnVariant(BtnVariant.Off);
     }
   };
+
+  useEffect(() => {
+    if (!map || !geolocControls) return;
+    map.on("load", triggerGeolocation);
+    return () => {
+      map.off("load", triggerGeolocation);
+    };
+  }, [geolocControls, map, triggerGeolocation]);
 
   return { handleGeolocClick, btnVariant };
 };
