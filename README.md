@@ -12,7 +12,7 @@
 
 ## General info
 
-The projects uses the MapboxGl to search nearby places.
+The project uses MapboxGl API to search for nearby places.
 
 ## Screenshots
 
