@@ -1,7 +1,5 @@
 # Searching Mapbox - React
 
-> Originally a SuperHi React tutorial project. Further developed and customized.
-
 ## Table of contents
 
 - [General info](#general-info)
