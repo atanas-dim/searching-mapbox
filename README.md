@@ -34,8 +34,8 @@ The project uses MapboxGl API to search for nearby places.
 
 ## To-do list
 
-- Manage state without prop drilling.
-- Save theme preferences in local storage
+- Get initial location by IP coords
+- Save theme preferences in local storage and set initial based on OS prefs
 
 ## See live
 
